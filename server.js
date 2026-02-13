@@ -6,9 +6,9 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
-const client_id = process.env.'0acc22fa-ad6b-42f8-a220-afe4234cc8ed';
-const client_secret = process.env.'nEZo3ld2B9WjUVgOt4F6b0Ur8hd05cBn';
-const x_token = process.env.'9ac9daa3-d4a7-4210-a328-3bfffc50f4c5';
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const x_token = process.env.X_TOKEN;
 
 let accessToken = '';
 
@@ -46,3 +46,4 @@ app.get('/token', (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
+
