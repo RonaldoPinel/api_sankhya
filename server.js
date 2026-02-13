@@ -39,11 +39,21 @@ async function gerarToken() {
 gerarToken();
 setInterval(gerarToken, 4 * 60 * 1000);
 
-app.get('/token', (req, res) => {
-    res.json({ token: accessToken });
+app.get('/token', async (req, res) => {
+    try {
+        if (!accessToken) {
+            await gerarToken(); // força gerar se ainda não existe
+        }
+
+        res.json({ token: accessToken });
+    } catch (err) {
+        res.status(500).json({ erro: 'Falha ao gerar token' });
+    }
 });
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
+
 
