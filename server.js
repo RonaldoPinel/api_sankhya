@@ -1,14 +1,14 @@
 const cors = require('cors');
-
 const express = require('express');
 
 const app = express();
 app.use(cors());
-const PORT = 3000;
 
-const client_id = '0acc22fa-ad6b-42f8-a220-afe4234cc8ed';
-const client_secret = 'nEZo3ld2B9WjUVgOt4F6b0Ur8hd05cBn';
-const x_token = '9ac9daa3-d4a7-4210-a328-3bfffc50f4c5';
+const PORT = process.env.PORT || 3000;
+
+const client_id = process.env.'0acc22fa-ad6b-42f8-a220-afe4234cc8ed';
+const client_secret = process.env.'nEZo3ld2B9WjUVgOt4F6b0Ur8hd05cBn';
+const x_token = process.env.'9ac9daa3-d4a7-4210-a328-3bfffc50f4c5';
 
 let accessToken = '';
 
@@ -30,23 +30,19 @@ async function gerarToken() {
         const data = await response.json();
         accessToken = data.access_token;
 
-        console.log('🔄 Token renovado:', new Date().toLocaleTimeString());
+        console.log('🔄 Token renovado');
     } catch (err) {
         console.error('Erro ao gerar token:', err);
     }
 }
 
-// gera ao iniciar
 gerarToken();
-
-// renova a cada 4 minutos
 setInterval(gerarToken, 4 * 60 * 1000);
 
-// endpoint para o front pegar o token
 app.get('/token', (req, res) => {
     res.json({ token: accessToken });
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor em http://localhost:${PORT}`);
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
