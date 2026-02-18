@@ -14,7 +14,7 @@ let accessToken = '';
 
 async function gerarToken() {
     try {
-        const response = await fetch('https://api.sandbox.sankhya.com.br/authenticate', {
+        const response = await fetch('https://api.sankhya.com.br/authenticate', {
             method: 'POST',
             headers: {
                 'X-Token': x_token,
@@ -55,5 +55,6 @@ app.get('/token', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });
+
 
 
